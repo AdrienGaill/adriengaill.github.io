@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>Notion Velo</title>
+    <style>
+        body {
+            background-color: #191919; /* Dark background color */
+            color: #fff; /* Text color */
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+          color: #16a34a;
+          font-size: 18px;
+          margin: 0 0 10px 0;
+        }
+
+        .progress-container {
+            border: 4px solid #4ade80;
+            border-radius: 5px; /* Rounded corners */
+            background-color: #bbf7d0; /* Lighter background color for progress bar */
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr; /* Add an extra row for the progress bar */
+            grid-column-gap: 0px;
+            grid-row-gap: 0px; 
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #86efac; /* Green color for progress */
+            border-radius: 10px;
+            transition: width 0.3s ease-in-out;
+            grid-area: 1 / 1 / 3 / 2; /* Position the progress bar in the second row */
+        }
+
+        .overall-container{
+          height: 100%;
+          grid-area: 1 / 1 / 2 / 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .button-container {
+            width: 25%;
+            padding:  0;
+            margin: 0 5px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #4ade80; /* Button background color */
+            color: #16a34a; /* Button text color */
+            border-color: #16a34a;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px; /* Add space between buttons */
+            font-weight: bolder;
+        }
+
+        .minus-button {
+          font-size: 14px;
+          padding: 0px 8px 2px 8px;
+        }
+      
+        .plus-button {
+          font-size: 20px;
+          padding: 2px 8px 4px 8px;
+        }
+
+        .central-element {
+          flex-direction: column;
+          width: 70%;
+          padding: 0;
+        }
+
+        .counter-container {
+          padding: 10px 0 0 0;
+        }
+      
+        button:hover {
+          background-color: #22c55e; /* Darker background color on hover */
+          color: #FFF;
+        }
+        
+        .icon-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 25%;
+          height: 100%;
+          margin: 0 0 0 5px;
+        }
+      
+
+        .icon {
+            height: 55px; /* Set the height of the container */
+            line-height: 42px; /* Vertically center the emoji */
+            font-size: 42px; /* Adjust the font size as needed */
+            background-color: #f0f0f0;
+            border: 3px solid #4ade80;
+            border-radius: 5px; /* Rounded corners */
+            padding: 5 0; /* Add some padding around the emoji */
+            display: flex;
+            align-items: middle;
+            justify-content: center;
+            text-align: center;
+            vertical-align: middle;
+            margin: 5px 0 ;
+        }
+
+        .counter {
+          font-size: 24px;
+          margin: 0 0px; /* Add space around counter */
+          color: #00cc66; /* Transparent text color */
+          -webkit-text-stroke: 2px #00cc66; /* Green border color and width for WebKit browsers */
+          text-fill-color: #00cc66; /* White text color */
+          padding: 5px; /* Add some padding for spacing */
+          border-radius: 5px; /* Add rounded corners */
+          display: inline-block; /* Ensure it doesn't take up the full width */
+        }
+      
+        .reload {
+          font-family: DejaVu Sans;
+          color: #00cc66;
+          font-size: 24x;
+          font-weight: bolder;
+          grid-area: 1 / 1 / 3 / 2;
+          position: absolute; /* Set the div to an absolute position */
+          top: 70px; /* Adjust the top distance */
+          right: 10px; /* Adjust the right distance */
+          cursor: pointer;
+        }
+      
+        .reload:hover {
+          color: #16a34a;
+        }
+
+    </style>
+</head>
+<body>
+  <div class="progress-container">
+    <div class="progress-bar" id="progress"></div>
+    <span class="reload" id="refresh">&#x21bb;</span>
+    <div class="overall-container">
+      <div class="icon-container">
+        <h1 class="icon">🚲</h1>
+      </div>
+      <div class="central-element">  
+        <div class="counter-container">
+          <span class="counter" id="count">0</span>
+          <span class="counter">/</span>
+          <span class="counter">5</span>
+        </div>
+        <h1>Vroum le vélo</h1>
+      </div>
+      <div class="button-container">
+        <button class="minus-button" id="decrement">-</button>
+        <button class="plus-button" id="increment">+</button>
+      </div>
+    </div>
+  </div>
+
+    <script>
+        // Get references to the HTML elements
+        const decrementButton = document.getElementById("decrement");
+        const incrementButton = document.getElementById("increment");
+        const refreshButton = document.getElementById("refresh");
+        const countElement = document.getElementById("count");
+        const progressBar = document.getElementById("progress");
+
+        // Initial count value
+        let count = 0;
+
+        // Function to update the count display and progress bar
+        function updateCount() {
+            countElement.innerText = count;
+            const ratio = count / 5; // Calculate the ratio
+            progressBar.style.width = `${Math.min(ratio * 100, 100)}%`; // Limit the width to 100%
+        }
+
+        // Event listener for the decrement button
+        decrementButton.addEventListener("click", function () {
+            if (count > 0) {
+                count--;
+                updateCount();
+            }
+        });
+
+        // Event listener for the increment button
+        incrementButton.addEventListener("click", function () {
+            count++;
+            updateCount();
+        });
+        
+        refreshButton.addEventListener("click", function () {
+            count = 0;
+            updateCount();
+        });
+        // Initial display
+        updateCount();
+    </script>
+</body>
+</html>
