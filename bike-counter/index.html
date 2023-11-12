@@ -192,7 +192,22 @@
         const progressBar = document.getElementById("progress");
 
         // Initial count value
-        var count = localStorage.getItem("bikeValue");
+        // var count = localStorage.getItem("bikeValue");
+
+        
+        // Global version
+        const { Client } = require('@notionhq/client');
+
+        const notion = new Client({ auth: process.env.NOTION_API_KEY });
+        const pageId = 'dede4d7cbf5847508ce6dcfe71d0e2b2'; // Bike page in Counters table
+        const propertyId = "Value"
+
+        (async () => {
+          // https://www.notion.so/Ultra-Backbone-1f1626b031ed4a70a0b79e5ee3a47748?pvs=4
+          // https://www.notion.so/Gym-befed2d53e1d4bf3960df7aa87965432?pvs=4
+          // https://www.notion.so/Bike-dede4d7cbf5847508ce6dcfe71d0e2b2?pvs=4
+          const count = await notion.pages.properties.retrieve({ page_id: pageId, property_id: propertyId });
+        })();
 
         if (count) {
             // If a value is stored, use it
@@ -209,7 +224,17 @@
             countElement.innerText = count;
             const ratio = count / 5; // Calculate the ratio
             progressBar.style.width = `${Math.min(ratio * 100, 100)}%`; // Limit the width to 100%
-            localStorage.setItem("bikeValue", count);
+            // localStorage.setItem("bikeValue", count);  
+            (async () => {
+              const response = await notion.pages.update({
+                page_id: pageId,
+                properties: {
+                  'Value': {
+                    number: count,
+                  },
+                },
+              });
+            })();
           }
 
         // Event listener for the decrement button
