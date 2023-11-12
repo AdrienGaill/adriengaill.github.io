@@ -160,7 +160,7 @@
           <span class="counter">/</span>
           <span class="counter">5</span>
         </div>
-        <h1>Vroum le vélo</h1>
+        <h1>Sessions Muscu</h1>
       </div>
       <div class="button-container">
         <button class="minus-button" id="decrement">-</button>
@@ -178,14 +178,24 @@
         const progressBar = document.getElementById("progress");
 
         // Initial count value
-        let count = 0;
+        var count = localStorage.getItem("gymValue");
 
+        if (count) {
+            // If a value is stored, use it
+            console.log("Stored Value:", count);
+        } else {
+            // If no value is stored, set a default value
+            var count = 0;
+            localStorage.setItem("gymValue", count);
+            console.log("Default Value Set:", count);
+        }
         // Function to update the count display and progress bar
         function updateCount() {
             countElement.innerText = count;
             const ratio = count / 5; // Calculate the ratio
             progressBar.style.width = `${Math.min(ratio * 100, 100)}%`; // Limit the width to 100%
-        }
+            localStorage.setItem("gymValue", count);
+          }
 
         // Event listener for the decrement button
         decrementButton.addEventListener("click", function () {
