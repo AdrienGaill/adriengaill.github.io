@@ -202,22 +202,22 @@
         const pageId = 'dede4d7cbf5847508ce6dcfe71d0e2b2'; // Bike page in Counters table
         const propertyId = "Value"
 
-        (async () => {
+        
           // https://www.notion.so/Ultra-Backbone-1f1626b031ed4a70a0b79e5ee3a47748?pvs=4
           // https://www.notion.so/Gym-befed2d53e1d4bf3960df7aa87965432?pvs=4
           // https://www.notion.so/Bike-dede4d7cbf5847508ce6dcfe71d0e2b2?pvs=4
-          const count = await notion.pages.properties.retrieve({ page_id: pageId, property_id: propertyId });
-        })();
+        const count = await notion.pages.properties.retrieve({ page_id: pageId, property_id: propertyId });
+      
 
-        if (count) {
-            // If a value is stored, use it
-            console.log("Stored Value:", count);
-        } else {
-            // If no value is stored, set a default value
-            var count = 0;
-            localStorage.setItem("bikeValue", count);
-            console.log("Default Value Set:", count);
-        }
+        // if (count) {
+        //     // If a value is stored, use it
+        //     console.log("Stored Value:", count);
+        // } else {
+        //     // If no value is stored, set a default value
+        //     var count = 0;
+        //     localStorage.setItem("bikeValue", count);
+        //     console.log("Default Value Set:", count);
+        // }
 
         // Function to update the count display and progress bar
         function updateCount() {
