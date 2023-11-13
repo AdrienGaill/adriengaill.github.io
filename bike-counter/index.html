@@ -199,13 +199,11 @@
         const { Client } = require('@notionhq/client');
         const NOTION_API_KEY = secret_tOjOhORYmRCC4zYdtMZSReqw1kXJYAHytkSLQdEv0BZ
         const notion = new Client({ auth: NOTION_API_KEY });
-        const pageId = '3fee5319b85648178b0ec1a792db49d9'; // Bike page in Counters table
+        const pageId = 'dede4d7cbf5847508ce6dcfe71d0e2b2'; // Bike page in Counters table
         const propertyId = "Value"
 
+        // https://www.notion.so/Bike-dede4d7cbf5847508ce6dcfe71d0e2b2?pvs=4
         
-          // https://www.notion.so/Ultra-Backbone-1f1626b031ed4a70a0b79e5ee3a47748?pvs=4
-          // https://www.notion.so/Gym-befed2d53e1d4bf3960df7aa87965432?pvs=4
-          // https://www.notion.so/Bike-dede4d7cbf5847508ce6dcfe71d0e2b2?pvs=4
         const count = notion.pages.properties.retrieve({ page_id: pageId, property_id: propertyId });
       
 
