@@ -197,10 +197,9 @@
         
         // Global version
         const { Client } = require('@notionhq/client');
-
-        const notion = new Client({ auth: process.env.NOTION_API_KEY });
+        const NOTION_API_KEY = secret_tOjOhORYmRCC4zYdtMZSReqw1kXJYAHytkSLQdEv0BZ
+        const notion = new Client({ auth: NOTION_API_KEY });
         const pageId = '3fee5319b85648178b0ec1a792db49d9'; // Bike page in Counters table
-        // https://www.notion.so/3fee5319b85648178b0ec1a792db49d9?v=8569dadc05294b64b52d6553f6a1d4cc&pvs=4
         const propertyId = "Value"
 
         
